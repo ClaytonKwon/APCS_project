@@ -11,13 +11,11 @@ fps = 60
 # game varaiables and images
 white_pieces = ['rook', 'knight', 'bishop', 'king', 'queen', 'bishop', 'knight', 'rook', 
                 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn']
-white_location = [(0,0), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0), (7,0)
-                  (0,1), (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1)]
+white_location = [(0,0), (1,0), (2,0), (3,0), (4,0), (5,0), (6,0), (7,0), (0,1), (1,1), (2,1), (3,1), (4,1), (5,1), (6,1), (7,1)]
 
 black_pieces = ['rook', 'knight', 'bishop', 'king', 'queen', 'bishop', 'knight', 'rook', 
                 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn', 'pawn']
-black_location = [(0,7), (1,7), (2,7), (3,7), (4,7), (5,7), (6,7), (7,7)
-                  (0,6), (1,6), (2,6), (3,6), (4,6), (5,6), (6,6), (7,6)]
+black_location = [(0,7), (1,7), (2,7), (3,7), (4,7), (5,7), (6,7), (7,7), (0,6), (1,6), (2,6), (3,6), (4,6), (5,6), (6,6), (7,6)]
 
 captured_white = []
 captured_black = []
@@ -25,7 +23,7 @@ turn_step = 0
 selection = 100
 valid_moves = []
 
-black_queen = pygame.transform.scale(pygame.image.load('images/black queen.png'), (80, 80))
+black_queen = pygame.transform.scale(pygame.image.load('images/blackqueen.png'), (80, 80))
 black_queen_small = pygame.transform.scale(black_queen, (45, 45))
 
 black_rook = pygame.transform.scale(pygame.image.load('images/black rook.png'), (80, 80))
@@ -64,10 +62,25 @@ white_pawn_small = pygame.transform.scale(white_pawn, (45, 45))
 white_images = [white_bishop, white_king, white_knight, white_queen, white_rook, white_pawn]
 black_images = [black_bishop, black_king, black_knight, black_queen, black_rook, black_pawn]
 
+small_white_image = [white_king_small, white_pawn_small, white_rook_small, white_queen_small, white_bishop_small, white_knight_small]
+small_black_image = [black_king_small, black_pawn_small, black_rook_small, black_queen_small, black_bishop_small, black_knight_small]
+
+peices = ['pawn', 'queen', 'king', 'knight', 'rook', 'bishop']
+
+def draw_board():
+    for i in range(32):
+        column = i % 4
+        row = i // 4
+        if row % 2 == 0:
+            pygame.draw.rect(screen, 'light grey', [600 - (column * 200), row * 100, 100, 100])
+        else:
+            pygame.draw.rect(screen, 'light grey', [700 - (column * 200), row * 100, 100, 100])
+
 run = True
 while run:
     timer.tick(fps)
     screen.fill('dark gray')
+    draw_board()
     
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
